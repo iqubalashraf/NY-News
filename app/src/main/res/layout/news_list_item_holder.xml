@@ -45,6 +45,8 @@
             android:textColor="@color/font_grey_light"
             android:textStyle="bold"
             android:textSize="@dimen/article_author_text_size"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_below="@id/tv_article_title"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginTop="@dimen/common_padding"

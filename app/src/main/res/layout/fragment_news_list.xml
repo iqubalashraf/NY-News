@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rv_news_list"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none"
-    android:overScrollMode="never"
-    android:background="@color/rv_background"
-    android:padding="@dimen/common_padding"
-    tools:listitem="@layout/news_list_item_holder">
+    android:layout_height="match_parent">
 
-</android.support.v7.widget.RecyclerView>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_news_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/rv_background"
+        android:overScrollMode="never"
+        android:padding="@dimen/common_padding"
+        android:scrollbars="none"
+        tools:listitem="@layout/news_list_item_holder" />
+
+    <TextView
+        android:id="@+id/tv_no_internet_msg"
+        android:layout_centerInParent="true"
+        android:textStyle="bold"
+        android:textColor="@color/font_grey_dark"
+        android:textSize="@dimen/action_bar_title_size"
+        android:text="@string/no_internet_connection_found"
+        android:padding="@dimen/default_margin"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -4,7 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.TextView;
 
 import com.app.nytimes.ParentFragment;
 import com.app.nytimes.R;
@@ -15,8 +16,6 @@ import com.app.nytimes.utils.AppHelper;
 import com.app.nytimes.utils.MyPreference;
 import com.google.gson.Gson;
 
-import io.reactivex.Observable;
-
 public class NewsListFragment extends ParentFragment implements NewsListAdapter.AdapterCallback,
         MyObservable.NetworkCallback {
     public static final String TAG = NewsListFragment.class.getSimpleName();
@@ -24,6 +23,7 @@ public class NewsListFragment extends ParentFragment implements NewsListAdapter.
     RecyclerView rv_news_list;
     Callback callback;
     NewsListAdapter adapter;
+    TextView tv_no_internet_msg;
 
     public static NewsListFragment newInstance() {
 
@@ -41,6 +41,7 @@ public class NewsListFragment extends ParentFragment implements NewsListAdapter.
 
     @Override
     protected void initializeViews() {
+        tv_no_internet_msg = fView.findViewById(R.id.tv_no_internet_msg);
         rv_news_list = fView.findViewById(R.id.rv_news_list);
         adapter = new NewsListAdapter(this);
         rv_news_list.setLayoutManager(new LinearLayoutManager(context));
@@ -56,15 +57,17 @@ public class NewsListFragment extends ParentFragment implements NewsListAdapter.
     protected void setData() {
         callback.setNetworkCallback(this);
         String articleDataString = MyPreference.getNewsArticle(context, "home", null);
-        if(articleDataString != null){
+        if (articleDataString != null) {
             ArticleDataModel articleDataModel = new Gson().fromJson(articleDataString, ArticleDataModel.class);
             updateData(articleDataModel);
-        }else {
+        } else {
             if (callback != null) {
-                if(AppHelper.isNetworkAvailable(context)) {
+                if (AppHelper.isNetworkAvailable(context)) {
                     parentCallback.showProgressDialog(false);
                     callback.getNewsData();
-                }else {
+                } else {
+                    rv_news_list.setVisibility(View.GONE);
+                    tv_no_internet_msg.setVisibility(View.VISIBLE);
                     AppHelper.showMsg(context, R.string.no_internet);
                 }
             }
@@ -91,16 +94,18 @@ public class NewsListFragment extends ParentFragment implements NewsListAdapter.
 
     @Override
     public void onSuccess(Object response) {
+        rv_news_list.setVisibility(View.VISIBLE);
+        tv_no_internet_msg.setVisibility(View.GONE);
         parentCallback.hideProgressDialog();
         if (response instanceof ArticleDataModel) {
             ArticleDataModel articleDataModel = (ArticleDataModel) response;
             updateData(articleDataModel);
-            MyPreference.setNewsArticle(context, articleDataModel.getSection() ,
-                    new Gson().toJson(articleDataModel) );
+            MyPreference.setNewsArticle(context, articleDataModel.getSection(),
+                    new Gson().toJson(articleDataModel));
         }
     }
 
-    private void updateData(ArticleDataModel articleDataModel){
+    private void updateData(ArticleDataModel articleDataModel) {
         adapter.setResults(articleDataModel.getResults());
         adapter.notifyDataSetChanged();
     }
@@ -113,7 +118,9 @@ public class NewsListFragment extends ParentFragment implements NewsListAdapter.
 
     public interface Callback {
         void setNetworkCallback(MyObservable.NetworkCallback callback);
+
         void getNewsData();
+
         void launchArticleDetailsPage(ArticleDataModel.ResultsBean item);
     }
 }

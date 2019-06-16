@@ -8,5 +8,6 @@
     <string name="refresh">Refresh</string>
     <string name="select_category">Select Category</string>
     <string name="no_internet">No Internet Found!</string>
+    <string name="no_internet_connection_found">No internet connection found. Please check and try to refresh</string>
 
 </resources>
