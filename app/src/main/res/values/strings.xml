@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NY Times</string>
+    <string name="news_image">Article Image</string>
+    <string name="text_something_went_wrong">Something went wrong…</string>
+    <string name="read_more">Read More</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="no_browser_installed_message">No browser installed</string>
+    <string name="refresh">Refresh</string>
+    <string name="select_category">Select Category</string>
+    <string name="no_internet">No Internet Found!</string>
+
+</resources>

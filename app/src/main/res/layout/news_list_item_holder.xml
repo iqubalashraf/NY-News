@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="true"
+    android:layout_margin="@dimen/common_padding"
+    app:cardBackgroundColor="@color/color_white"
+    app:cardCornerRadius="@dimen/default_card_corner_radius">
+
+    <RelativeLayout
+        android:id="@+id/contain_layout"
+        android:padding="@dimen/common_padding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_news_thumbnail"
+            android:layout_width="@dimen/news_thumbnail_image_dimension"
+            android:layout_height="@dimen/news_thumbnail_image_dimension"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/news_image"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_article_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Article title"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/font_grey_dark"
+            android:textSize="@dimen/article_title_text_size"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_toEndOf="@id/iv_news_thumbnail" />
+
+        <TextView
+            android:id="@+id/tv_author_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Author Name"
+            android:textColor="@color/font_grey_light"
+            android:textStyle="bold"
+            android:textSize="@dimen/article_author_text_size"
+            android:layout_below="@id/tv_article_title"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/common_padding"
+            android:layout_toEndOf="@id/iv_news_thumbnail" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
